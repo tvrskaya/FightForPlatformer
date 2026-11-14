@@ -6,15 +6,18 @@ public class InputProcessor : MonoBehaviour
     private static readonly string HorizontalAxis = "Horizontal";
     private static readonly string JumpButton = "Jump";
     private static readonly string SprintButton = "Sprint";
+    private static readonly string AttackButton = "Attack";
 
     public event Action JumpPressed;
     public event Action<float> MovePressed;
     public event Action<float> SprintPresssed;
+    public event Action AttackPressed;
 
     private void Update()
     {
         ProcessMove();
         ProcessJump();
+        ProcessAttack();
     }
 
     private void ProcessMove()
@@ -32,6 +35,14 @@ public class InputProcessor : MonoBehaviour
         if (Input.GetButtonDown(JumpButton))
         {
             JumpPressed?.Invoke();
+        }
+    }
+
+    private void ProcessAttack()
+    {
+        if (Input.GetButtonDown(AttackButton))
+        {
+            AttackPressed?.Invoke();
         }
     }
 }

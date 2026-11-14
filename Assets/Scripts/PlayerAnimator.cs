@@ -7,14 +7,13 @@ public class PlayerAnimator : MonoBehaviour
     private static readonly int IsGrounded = Animator.StringToHash("IsGrounded");
     private static readonly int VelocityY = Animator.StringToHash("VelocityY");
     private static readonly int Jump = Animator.StringToHash("Jump");
+    private static readonly int Attack = Animator.StringToHash("Attack");
 
     private Animator _animator;
-    private SpriteRenderer _spriteRenderer;
 
     private void Awake()
     {
         _animator = GetComponent<Animator>();
-        _spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     public void UpdateMovement(Vector2 velocity, bool isGrounded)
@@ -22,13 +21,15 @@ public class PlayerAnimator : MonoBehaviour
         _animator.SetFloat(Speed, Mathf.Abs(velocity.x));
         _animator.SetFloat(VelocityY, velocity.y);
         _animator.SetBool(IsGrounded, isGrounded);
-
-        if (velocity.x != 0f)
-            _spriteRenderer.flipX = velocity.x < 0f;
     }
 
     public void PlayJump()
     {
         _animator.SetTrigger(Jump);
+    }
+
+    public void PlayAttack()
+    {
+        _animator.SetTrigger(Attack);
     }
 }
