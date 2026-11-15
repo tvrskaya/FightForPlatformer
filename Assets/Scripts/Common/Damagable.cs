@@ -5,11 +5,21 @@ public class Damagable : MonoBehaviour
 {
     private static readonly int MinHealth = 0;
 
+    [SerializeField] private int _maxHealth = 100;
     [SerializeField] private int _health = 100;
 
     public event Action HealthEnded;
 
     public int Health => _health;
+    public int MaxHealth => _maxHealth;
+
+    public void Heal(int amount)
+    {
+        if (_health <= MinHealth)
+            return;
+
+        _health = Mathf.Min(_health + amount, _maxHealth);
+    }
 
     public void TakeDamage(int amount)
     {
