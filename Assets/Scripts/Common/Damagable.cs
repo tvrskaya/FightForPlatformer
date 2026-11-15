@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class Damagable : MonoBehaviour
@@ -6,12 +7,20 @@ public class Damagable : MonoBehaviour
 
     [SerializeField] private int _health = 100;
 
+    public event Action HealthEnded;
+
     public int Health => _health;
 
     public void TakeDamage(int amount)
     {
+        if (_health <= MinHealth)
+            return;
+
         _health -= amount;
-        if (_health < MinHealth)
+        if (_health <= MinHealth)
+        {
             _health = MinHealth;
+            HealthEnded?.Invoke();
+        }
     }
 }

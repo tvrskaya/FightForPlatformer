@@ -4,7 +4,7 @@ public class PlayerProcessor : MonoBehaviour
 {
     [SerializeField] private CoinDetector _coinDetector;
     [SerializeField] private Wallet _wallet;
-    [SerializeField] private Mover _mover;
+    [SerializeField] private PlayerMover _mover;
     [SerializeField] private InputProcessor _inputProcessor;
     [SerializeField] private PlayerAnimator _playerAnimator;
     [SerializeField] private EntityRotator _entityRotator;
