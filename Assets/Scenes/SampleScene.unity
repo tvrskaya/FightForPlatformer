@@ -477,6 +477,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f1e0e55c3749a84bb23dbba5a82e94f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Damagable
+  _maxHealth: 100
   _health: 100
 --- !u!114 &315710690
 MonoBehaviour:
@@ -854,6 +855,89 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &665201698
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 665201700}
+  - component: {fileID: 665201699}
+  m_Layer: 0
+  m_Name: AidKitSpawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &665201699
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 665201698}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ca2f82643813abc42a9999eb6052e7fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AidKitSpawner
+  _prefab: {fileID: 2844625564283041327, guid: c7a579ca296c68a46a10c84b88e76313, type: 3}
+  _detector: {fileID: 1076296316}
+  _spawnPoints:
+  - {fileID: 1667224667}
+  - {fileID: 831618553}
+  _spawnTimer: 3
+--- !u!4 &665201700
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 665201698}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.69581, y: 0.43562, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1667224667}
+  - {fileID: 831618553}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &831618552
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 831618553}
+  m_Layer: 0
+  m_Name: SpawnPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &831618553
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 831618552}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -2.7, y: -0.12, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 665201700}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &936232798
 GameObject:
   m_ObjectHideFlags: 0
@@ -896,6 +980,8 @@ GameObject:
   - component: {fileID: 1076296301}
   - component: {fileID: 1076296302}
   - component: {fileID: 1076296308}
+  - component: {fileID: 1076296317}
+  - component: {fileID: 1076296316}
   - component: {fileID: 1076296315}
   - component: {fileID: 1076296314}
   - component: {fileID: 1076296313}
@@ -1024,7 +1110,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerProcessor
   _coinDetector: {fileID: 1076296307}
+  _aidKitDetector: {fileID: 1076296316}
   _wallet: {fileID: 1076296306}
+  _damagable: {fileID: 1076296317}
   _mover: {fileID: 1076296302}
   _inputProcessor: {fileID: 1076296305}
   _playerAnimator: {fileID: 1076296314}
@@ -1190,6 +1278,32 @@ MonoBehaviour:
   _damagableLayers:
     serializedVersion: 2
     m_Bits: 64
+--- !u!114 &1076296316
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1076296300}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0ad08c49ac53c9a4088bb7fc0ea2f019, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AidKitDetector
+--- !u!114 &1076296317
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1076296300}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f1e0e55c3749a84bb23dbba5a82e94f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Damagable
+  _maxHealth: 100
+  _health: 100
 --- !u!1 &1600824058
 GameObject:
   m_ObjectHideFlags: 0
@@ -1219,11 +1333,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3745619947b9a294aacccafc195755da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CoinSpawner
-  _coinPrefab: {fileID: 4901067846319460819, guid: 9b076815a8d5e36419bbf7ea8948bb52, type: 3}
-  _coinDetector: {fileID: 1076296307}
+  _prefab: {fileID: 4901067846319460819, guid: 9b076815a8d5e36419bbf7ea8948bb52, type: 3}
+  _detector: {fileID: 1076296307}
   _spawnPoints:
   - {fileID: 486286947}
-  _coinSpawnTimer: 3
+  _spawnTimer: 3
 --- !u!4 &1600824060
 Transform:
   m_ObjectHideFlags: 0
@@ -1239,6 +1353,37 @@ Transform:
   m_Children:
   - {fileID: 486286947}
   m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1667224666
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1667224667}
+  m_Layer: 0
+  m_Name: SpawnPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1667224667
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1667224666}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -8.77, y: -0.51, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 665201700}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1969003700
 GameObject:
@@ -1281,3 +1426,4 @@ SceneRoots:
   - {fileID: 1600824060}
   - {fileID: 266338698}
   - {fileID: 215595381}
+  - {fileID: 665201700}

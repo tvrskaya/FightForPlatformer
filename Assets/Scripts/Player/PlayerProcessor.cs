@@ -10,6 +10,7 @@ public class PlayerProcessor : MonoBehaviour
     [SerializeField] private InputProcessor _inputProcessor;
     [SerializeField] private PlayerAnimator _playerAnimator;
     [SerializeField] private EntityRotator _entityRotator;
+    [SerializeField] private AttackProcessor _attackProcessor;
 
     private void OnEnable()
     {
@@ -21,7 +22,8 @@ public class PlayerProcessor : MonoBehaviour
         _inputProcessor.SprintPresssed += _mover.Sprint;
 
         _inputProcessor.JumpPressed += _playerAnimator.PlayJump;
-        _inputProcessor.AttackPressed += _playerAnimator.PlayAttack;
+        _inputProcessor.AttackPressed += _attackProcessor.Attack;
+        _attackProcessor.AttackRequested += _playerAnimator.PlayAttack;
     }
     
     private void OnDisable()
@@ -34,7 +36,8 @@ public class PlayerProcessor : MonoBehaviour
         _inputProcessor.SprintPresssed -= _mover.Sprint;
 
         _inputProcessor.JumpPressed -= _playerAnimator.PlayJump;
-        _inputProcessor.AttackPressed -= _playerAnimator.PlayAttack;
+        _inputProcessor.AttackPressed -= _attackProcessor.Attack;   
+        _attackProcessor.AttackRequested -= _playerAnimator.PlayAttack;
     }
     
     private void Update()

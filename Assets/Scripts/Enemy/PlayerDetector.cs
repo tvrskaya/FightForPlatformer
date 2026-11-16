@@ -22,14 +22,16 @@ public class PlayerDetector : MonoBehaviour
         }
     }
 
-    public bool IsPlayerDetected(out float direction)
+    public bool IsPlayerDetected(out float direction, out float distance)
     {
         direction = 0f;
+        distance = 0f;
 
         if (_playerTransform == null)
             return false;
 
-        direction = Mathf.Sign(_playerTransform.position.x - transform.position.x);
+        distance = _playerTransform.position.x - transform.position.x;
+        direction = Mathf.Sign(distance);
 
         return true;
     }
