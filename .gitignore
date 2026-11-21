@@ -1,0 +1,14 @@
+/Library/
+/Temp/
+/[Oo]bj/
+/Logs/
+/UserSettings/
+/Build/
+/Builds/
+/MemoryCaptures/
+/.vs/
+/.vscode/
+
+*.csproj
+*.sln
+*.slnx
