@@ -2,12 +2,12 @@ using UnityEngine;
 
 [RequireComponent(typeof(Mover), typeof(EnemyPatrol), typeof(PlayerDetector))]
 [RequireComponent(typeof(AttackProcessor), typeof(EnemyAnimator), typeof(EntityRotator))]
-[RequireComponent(typeof(Damagable))]
+[RequireComponent(typeof(Health))]
 public class EnemyProcessor : MonoBehaviour
 {
     [SerializeField, Min(0f)] private float _distanceToAttack = 5f;
 
-    private Damagable _damagable;
+    private Health _health;
     private EntityRotator _entityRotator;
     private EnemyPatrol _patrol;
     private PlayerDetector _detector;
@@ -17,7 +17,7 @@ public class EnemyProcessor : MonoBehaviour
 
     private void Awake()
     {
-        _damagable = GetComponent<Damagable>();
+        _health = GetComponent<Health>();
         _entityRotator = GetComponent<EntityRotator>();
         _patrol = GetComponent<EnemyPatrol>();
         _detector = GetComponent<PlayerDetector>();
@@ -28,13 +28,13 @@ public class EnemyProcessor : MonoBehaviour
 
     private void OnEnable()
     {
-        _damagable.HealthEnded += ProcessDeath;
+        _health.HealthEnded += ProcessDeath;
         _attackProcessor.AttackRequested += _animator.PlayAttack;
     }
 
     private void OnDisable()
     {
-        _damagable.HealthEnded -= ProcessDeath;
+        _health.HealthEnded -= ProcessDeath;
         _attackProcessor.AttackRequested -= _animator.PlayAttack;
     }
 

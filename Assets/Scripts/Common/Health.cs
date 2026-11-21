@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public class Damagable : MonoBehaviour
+public class Health : MonoBehaviour
 {
     private static readonly int MinHealth = 0;
 
@@ -9,9 +9,6 @@ public class Damagable : MonoBehaviour
     [SerializeField] private int _health = 100;
 
     public event Action HealthEnded;
-
-    public int Health => _health;
-    public int MaxHealth => _maxHealth;
 
     public void Heal(int amount)
     {

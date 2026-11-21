@@ -1,13 +1,13 @@
 using UnityEngine;
 
-public class PlayerProcessor : MonoBehaviour
+public class Player : MonoBehaviour
 {
     [SerializeField] private CoinDetector _coinDetector;
     [SerializeField] private AidKitDetector _aidKitDetector;
     [SerializeField] private Wallet _wallet;
-    [SerializeField] private Damagable _damagable;
+    [SerializeField] private Health _health;
     [SerializeField] private PlayerMover _mover;
-    [SerializeField] private InputProcessor _inputProcessor;
+    [SerializeField] private InputReader _inputReader;
     [SerializeField] private PlayerAnimator _playerAnimator;
     [SerializeField] private EntityRotator _entityRotator;
     [SerializeField] private AttackProcessor _attackProcessor;
@@ -17,12 +17,12 @@ public class PlayerProcessor : MonoBehaviour
         _coinDetector.Touched += ProcessCoinTouched;
         _aidKitDetector.Touched += ProcessAidKitTouched;
 
-        _inputProcessor.MovePressed += _mover.Move;
-        _inputProcessor.JumpPressed += _mover.Jump;
-        _inputProcessor.SprintPresssed += _mover.Sprint;
+        _inputReader.MovePressed += _mover.Move;
+        _inputReader.JumpPressed += _mover.Jump;
+        _inputReader.SprintPresssed += _mover.Sprint;
 
-        _inputProcessor.JumpPressed += _playerAnimator.PlayJump;
-        _inputProcessor.AttackPressed += _attackProcessor.Attack;
+        _inputReader.JumpPressed += _playerAnimator.PlayJump;
+        _inputReader.AttackPressed += _attackProcessor.Attack;
         _attackProcessor.AttackRequested += _playerAnimator.PlayAttack;
     }
     
@@ -31,12 +31,12 @@ public class PlayerProcessor : MonoBehaviour
         _coinDetector.Touched -= ProcessCoinTouched;
         _aidKitDetector.Touched -= ProcessAidKitTouched;
 
-        _inputProcessor.MovePressed -= _mover.Move;
-        _inputProcessor.JumpPressed -= _mover.Jump;
-        _inputProcessor.SprintPresssed -= _mover.Sprint;
+        _inputReader.MovePressed -= _mover.Move;
+        _inputReader.JumpPressed -= _mover.Jump;
+        _inputReader.SprintPresssed -= _mover.Sprint;
 
-        _inputProcessor.JumpPressed -= _playerAnimator.PlayJump;
-        _inputProcessor.AttackPressed -= _attackProcessor.Attack;   
+        _inputReader.JumpPressed -= _playerAnimator.PlayJump;
+        _inputReader.AttackPressed -= _attackProcessor.Attack;   
         _attackProcessor.AttackRequested -= _playerAnimator.PlayAttack;
     }
     
@@ -53,6 +53,6 @@ public class PlayerProcessor : MonoBehaviour
 
     private void ProcessAidKitTouched(AidKit aidKit)
     {
-        _damagable.Heal(aidKit.HealAmount);
+        _health.Heal(aidKit.HealAmount);
     }
 }

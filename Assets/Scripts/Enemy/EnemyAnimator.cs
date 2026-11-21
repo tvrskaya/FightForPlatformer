@@ -14,7 +14,6 @@ public class EnemyAnimator : MonoBehaviour
 
     public void PlayAttack()
     {
-        Debug.Log("PLAY ATTACK");
         _animator.SetTrigger(Attack);
     }
 }

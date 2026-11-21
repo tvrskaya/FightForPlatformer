@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public class InputProcessor : MonoBehaviour
+public class InputReader : MonoBehaviour
 {
     private static readonly string HorizontalAxis = "Horizontal";
     private static readonly string JumpButton = "Jump";

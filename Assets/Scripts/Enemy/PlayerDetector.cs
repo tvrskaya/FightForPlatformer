@@ -12,7 +12,7 @@ public class PlayerDetector : MonoBehaviour
         RaycastHit2D hit = Physics2D.Raycast(transform.position, transform.right, _detectRayLenght, _visionLayers);
 
         if (hit.collider != null &&
-            hit.collider.TryGetComponent<PlayerProcessor>(out _))
+            hit.collider.TryGetComponent<Player>(out _))
         {
             _playerTransform = hit.transform;
         }
