@@ -11,6 +11,12 @@ public class Player : MonoBehaviour
     [SerializeField] private PlayerAnimator _playerAnimator;
     [SerializeField] private EntityRotator _entityRotator;
     [SerializeField] private AttackProcessor _attackProcessor;
+    [SerializeField] private HealthRenderer _healthRenderer;
+
+    private void Awake()
+    {
+        _healthRenderer.Initialize(_health.MaxHealth);
+    }
 
     private void OnEnable()
     {
@@ -24,6 +30,9 @@ public class Player : MonoBehaviour
         _inputReader.JumpPressed += _playerAnimator.PlayJump;
         _inputReader.AttackPressed += _attackProcessor.Attack;
         _attackProcessor.AttackRequested += _playerAnimator.PlayAttack;
+        _health.HealthChanged += _healthRenderer.RenderHealth;
+
+        _healthRenderer.Initialize(_health.MaxHealth);
     }
     
     private void OnDisable()
@@ -36,10 +45,11 @@ public class Player : MonoBehaviour
         _inputReader.SprintPresssed -= _mover.Sprint;
 
         _inputReader.JumpPressed -= _playerAnimator.PlayJump;
-        _inputReader.AttackPressed -= _attackProcessor.Attack;   
+        _inputReader.AttackPressed -= _attackProcessor.Attack;
         _attackProcessor.AttackRequested -= _playerAnimator.PlayAttack;
+        _health.HealthChanged -= _healthRenderer.RenderHealth;
     }
-    
+
     private void Update()
     {
         _playerAnimator.UpdateMovement(_mover.Velocity, _mover.IsGrounded);

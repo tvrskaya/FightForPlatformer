@@ -4,12 +4,14 @@ public class PlayerDetector : MonoBehaviour
 {
     [SerializeField] private float _detectRayLenght = 3f;
     [SerializeField] private LayerMask _visionLayers;
+    [SerializeField] private Transform _facingTransform;
 
     private Transform _playerTransform;
 
     private void FixedUpdate()
     {
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, transform.right, _detectRayLenght, _visionLayers);
+        Transform facingTransform = _facingTransform != null ? _facingTransform : transform;
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, facingTransform.right, _detectRayLenght, _visionLayers);
 
         if (hit.collider != null &&
             hit.collider.TryGetComponent<Player>(out _))
