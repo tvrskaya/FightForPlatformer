@@ -9,9 +9,10 @@ public class Health : MonoBehaviour
     [SerializeField] private int _health = 100;
 
     public event Action HealthEnded;
-    public event Action<int> HealthChanged;
+    public event Action<float> HealthChanged;
 
-    public int MaxHealth => _maxHealth; 
+    public int MaxHealth => _maxHealth;
+    public int CurrentHealth => _health;
 
     public void Heal(int amount)
     {
