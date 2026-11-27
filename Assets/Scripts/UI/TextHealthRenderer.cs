@@ -1,7 +1,7 @@
 using TMPro;
 using UnityEngine;
 
-public class TextHealthRenderer : HealthRenderer
+public class TextHealthRenderer : ValueRendererIface
 {
     [SerializeField] private TMP_Text _label;
 
@@ -10,10 +10,10 @@ public class TextHealthRenderer : HealthRenderer
     public override void Initialize(int maxValue)
     {
         _maxHealth = maxValue;
-        RenderHealth(maxValue);
+        RenderValue(maxValue);
     }
 
-    public override void RenderHealth(int newValue)
+    public override void RenderValue(float newValue)
     {
         _label.text = $"{newValue}/{_maxHealth}";
     }

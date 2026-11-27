@@ -9,6 +9,5 @@ public class Wallet : MonoBehaviour
     public void AddCoins(int value)
     {
         _coinsAmount += value;
-        Debug.Log("Current amount " + _coinsAmount);
     }
 }

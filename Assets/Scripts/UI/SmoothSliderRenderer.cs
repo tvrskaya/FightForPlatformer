@@ -2,31 +2,22 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class SmoothSliderHealthRenderer : HealthRenderer
+public class SmoothSliderRenderer : ValueRendererIface
 {
+    private static readonly int InitialMaxValue = 100;
+
     [SerializeField] private Slider _slider;
     [SerializeField, Min(0.01f)] private float _speed = 50f;
 
     private Coroutine _renderRoutine;
     private float _targetValue;
 
-    public override void Initialize(int maxValue)
+    private void Awake()
     {
-        StopRendering();
-        _slider.minValue = 0;
-        _slider.maxValue = maxValue;
-        _slider.SetValueWithoutNotify(maxValue);
+        _slider.maxValue = InitialMaxValue;
+        _slider.SetValueWithoutNotify(_slider.maxValue);
     }
-
-    public override void RenderHealth(int newValue)
-    {
-        StopRendering();
-        _targetValue = Mathf.Clamp(newValue, _slider.minValue, _slider.maxValue);
-
-        if (_slider.value != _targetValue)
-            _renderRoutine = StartCoroutine(AnimateHealth(_targetValue));
-    }
-
+    
     private void OnDisable()
     {
         if (_renderRoutine == null)
@@ -36,7 +27,29 @@ public class SmoothSliderHealthRenderer : HealthRenderer
         _slider.SetValueWithoutNotify(_targetValue);
     }
 
-    private IEnumerator AnimateHealth(float targetValue)
+    public override void Initialize(int maxValue)
+    {
+        StopRendering();
+        _slider.minValue = 0;
+        _slider.maxValue = maxValue;
+        _slider.SetValueWithoutNotify(maxValue);
+    }
+
+    public override void RenderValue(float newValue)
+    {
+        StopRendering();
+        _targetValue = Mathf.Clamp(newValue, _slider.minValue, _slider.maxValue);
+
+        if (_slider.value != _targetValue)
+            _renderRoutine = StartCoroutine(AnimateValueChanging(_targetValue));
+    }
+
+    public void Reset()
+    {
+        _slider.SetValueWithoutNotify(_slider.minValue);
+    }
+
+    private IEnumerator AnimateValueChanging(float targetValue)
     {
         float currentValue = _slider.value;
 

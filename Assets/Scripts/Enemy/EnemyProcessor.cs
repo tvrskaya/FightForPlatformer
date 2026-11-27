@@ -8,7 +8,7 @@ public class EnemyProcessor : MonoBehaviour
     [SerializeField, Min(0f)] private float _distanceToAttack = 5f;
     [SerializeField] private EntityRotator _entityRotator;
     [SerializeField] private EnemyAnimator _animator;
-    [SerializeField] private HealthRenderer _healthRenderer;
+    [SerializeField] private ValueRendererIface _healthRenderer;
 
     private Health _health;
     private EnemyPatrol _patrol;
@@ -37,14 +37,14 @@ public class EnemyProcessor : MonoBehaviour
     {
         _health.HealthEnded += ProcessDeath;
         _attackProcessor.AttackRequested += _animator.PlayAttack;
-        _health.HealthChanged += _healthRenderer.RenderHealth;
+        _health.HealthChanged += _healthRenderer.RenderValue;
     }
 
     private void OnDisable()
     {
         _health.HealthEnded -= ProcessDeath;
         _attackProcessor.AttackRequested -= _animator.PlayAttack;
-        _health.HealthChanged -= _healthRenderer.RenderHealth;
+        _health.HealthChanged -= _healthRenderer.RenderValue;
     }
 
     private void FixedUpdate()
